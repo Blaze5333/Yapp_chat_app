@@ -15,7 +15,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@clerk/express": "1.7.60",
+    "@clerk/express": "^2.1.5",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "cors": "2.8.5",
