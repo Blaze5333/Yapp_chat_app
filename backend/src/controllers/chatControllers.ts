@@ -30,6 +30,9 @@ export async function getOrCreateChat(req:AuthRequest,res:Response,next:NextFunc
     try {
         const userId=req.userId;
         const {participantId}=req.params;
+        if(!participantId){
+            return res.status(400).json({message:"Invalid participant ID"})
+         }
         let chat=await Chat.findOne({
             participants:{$all:[userId,participantId]},
         }).populate("participants","name email avatar")
