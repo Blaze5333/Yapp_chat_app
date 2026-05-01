@@ -25,10 +25,9 @@ app.use("/api/messages",messageRoutes)
 app.use("/api/users",userRoutes)
 app.use(errorHandler)
 
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname, "../../web/dist")))
-   app.get(/^(?!\/api).+/,(_,res)=>{
-    res.sendFile(path.join(__dirname,"../../web/dist/index.html"))
-   })
-}
+const distPath = path.join(__dirname, "../../web/dist");
+app.use(express.static(distPath));
+app.use((req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+});
 export default app
