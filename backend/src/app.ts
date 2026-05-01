@@ -7,6 +7,7 @@ import messageRoutes from "./routes/messageRoutes";
 import userRoutes from "./routes/userRoute";
 import { clerkMiddleware } from "@clerk/express";
 import { errorHandler } from "./middleware/errorHandler";
+import path from "path";
 
 app.use(express.json());
 
@@ -23,4 +24,11 @@ app.use("/api/chats",chatRoutes)
 app.use("/api/messages",messageRoutes)
 app.use("/api/users",userRoutes)
 app.use(errorHandler)
+
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static(path.join(__dirname+"../../web/dist")))
+   app.get("/{*any}",(_,res)=>{
+    res.sendFile(path.join(__dirname,"../../web/dist/index.html"))
+   })
+}
 export default app
